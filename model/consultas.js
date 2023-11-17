@@ -32,6 +32,8 @@ const getDadosEstado = (sigla) => {
     const uf = sigla.toUpperCase()
     const estados = pais.estadosCidades.estados
 
+    let status = false
+
     let descricaoEstado = {}
 
     estados.forEach((estado) => {
@@ -43,18 +45,24 @@ const getDadosEstado = (sigla) => {
             descricaoEstado.capital = estado.capital
             descricaoEstado.regiao = estado.regiao
 
+            status = true
+
         }
 
     })
 
-    return descricaoEstado
-
+    if (status)
+        return descricaoEstado
+    else
+        return false
 }
 
 const getCapitalEstado = (sigla) => {
 
     const uf = sigla.toUpperCase()
     const estados = pais.estadosCidades.estados
+
+    let status = false
 
     let capitalEstado = {}
 
@@ -66,11 +74,15 @@ const getCapitalEstado = (sigla) => {
             capitalEstado.descricao = estado.nome
             capitalEstado.capital = estado.capital
 
+            status = true
         }
 
     })
 
-    return capitalEstado
+    if (status)
+        return capitalEstado
+    else
+        return false
 
 }
 
@@ -79,6 +91,8 @@ const getEstadosRegiao = (regiaoSelecionada) => {
     const regiao = regiaoSelecionada.toUpperCase()
 
     const estados = pais.estadosCidades.estados
+
+    let status = false
 
     let estadoRegiao = {}
     estadoRegiao.regiao = regiao
@@ -95,21 +109,24 @@ const getEstadosRegiao = (regiaoSelecionada) => {
             }
 
             estadosRegiaoSelecionada.push(estadoRegiaoSelecionada)
-
-
+            status = true
         }
 
     })
 
     estadoRegiao.estados = estadosRegiaoSelecionada
 
-    return estadoRegiao
+    if (status)
+        return estadoRegiao
+    else
+        return false
 
 }
 
 const getCapitalPais = () => {
 
     const estados = pais.estadosCidades.estados
+    let status = false
 
     let capitaisPais = {}
     let capitais = []
@@ -130,13 +147,19 @@ const getCapitalPais = () => {
 
             capitais.push(estadoInfo)
 
+            status = true
+
         }
 
     })
 
     capitaisPais.capitais = capitais
 
-    return capitaisPais
+
+    if (status)
+        return capitaisPais
+    else
+        return false
 
 }
 
@@ -144,6 +167,8 @@ const getCidades = (sigla) => {
 
     const uf = sigla.toUpperCase()
     const estados = pais.estadosCidades.estados
+
+    let status = false
 
     let estadoCidades = {}
     let cidades = []
@@ -161,29 +186,28 @@ const getCidades = (sigla) => {
             estado.cidades.forEach((cidade) => {
                 cidades.push(cidade.nome)
             })
-
+            status = true
         }
 
     })
 
     estadoCidades.cidades = cidades
 
-    return estadoCidades
+
+    if (status)
+        return estadoCidades
+    else
+        return false
 
 }
 
-let estados = getListaDeEstados()
-let destados = getDadosEstado('ba')
-let cestados = getCapitalEstado('sp')
-let Eestados = getEstadosRegiao('nordeste')
-let cPais = getCapitalPais()
-let cidade = getCidades('rj')
-
-console.log(estados)
-console.log(destados)
-console.log(cestados)
-console.log(Eestados)
-console.log(cPais)
-console.log(cidade)
+module.exports = {
+    getListaDeEstados,
+    getDadosEstado,
+    getCapitalEstado,
+    getEstadosRegiao,
+    getCapitalPais,
+    getCidades
+}
 
 /*Nicolas Vasconcelos ✈ */
